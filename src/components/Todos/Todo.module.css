@@ -1,0 +1,64 @@
+.todoContainer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding-left: 20px;
+  padding-right: 20px;
+  max-width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 15px;
+  border-radius: 7px;
+  background-color: white;
+}
+
+.deleteOneIcon {
+  margin-right: 15px;
+  font-size: 32px;
+}
+
+.checkIcon {
+  font-size: 32px;
+}
+
+.todoIcon {
+  margin-right: 10px;
+  font-size: 32px;
+  color: rgb(37, 56, 37);
+}
+
+.todoText {
+  word-wrap: break-word;
+  margin-left: 10px;
+  font-size: 32px;
+  width: 75%;
+  text-align: left;
+}
+
+.checked {
+  opacity: 0.4;
+}
+
+.deleteOneIcon,
+.checkIcon {
+  cursor: pointer;
+  color: lightgray;
+  transition: transform 0.3s;
+}
+
+.deleteOneIcon:hover,
+.checkIcon:hover {
+  cursor: pointer;
+  transform: scale(1.3);
+}
+
+.deleteOneIcon:hover {
+  color: red;
+}
+
+.checkIcon:hover {
+  color: green;
+}
+
+.unchecked {
+}
