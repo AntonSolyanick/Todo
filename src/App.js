@@ -1,37 +1,51 @@
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import "./App.css";
 import TodoForm from "./components/Todos/TodoForm";
 import TodoList from "./components/Todos/TodoList";
-import ControlButtons from "./components/UI/ControlButtons";
+import ControlButtons from "./components/Todos/ControlButtons";
 
 function App() {
   const [todoArr, setTodoArr] = useState([]);
-  const [complTodos, setCompltodos] = useState(0);
+
+  const complTodosCount = todoArr.filter((todo) => todo.checked).length;
 
   function addTodoFn(string) {
-    setTodoArr([...todoArr, string]);
+    const newTodo = {
+      text: string,
+      checked: false,
+      id: uuidv4(),
+    };
+    setTodoArr([...todoArr, newTodo]);
   }
-  function delTodoFn(index) {
-    todoArr.splice(index, 1);
-    setTodoArr([...todoArr]);
+  function delTodoFn(id) {
+    setTodoArr(todoArr.filter((todo) => todo.id != id));
   }
-  function setCompltodosFn(complTodoNum) {
-    setCompltodos(complTodoNum);
-  }
-  const setTodoArrFn = function (arr) {
+
+  function setTodoArrFn(arr) {
     setTodoArr(arr);
-  };
+  }
+  function delComplTodoFn() {
+    setTodoArr(todoArr.filter((todo) => !todo.checked));
+  }
+  function toggleTodoFn(id) {
+    setTodoArr(
+      todoArr.map((todo) =>
+        todo.id === id ? { ...todo, checked: !todo.checked } : { ...todo }
+      )
+    );
+  }
 
   return (
     <>
       <h1>Todo app</h1>
-
       <TodoForm addTodoFn={addTodoFn} />
 
       {todoArr.length > 0 ? (
         <ControlButtons
-          setCompltodosFn={setCompltodosFn}
           setTodoArrFn={setTodoArrFn}
+          delComplTodoFn={delComplTodoFn}
+          existComplTodo={!!complTodosCount}
         />
       ) : (
         <h3>Todo list is empty</h3>
@@ -40,11 +54,16 @@ function App() {
       <TodoList
         todoArr={todoArr}
         delTodoFn={delTodoFn}
-        complTodos={complTodos}
-        setCompltodosFn={setCompltodosFn}
+        toggleTodoFn={toggleTodoFn}
       />
 
-      {complTodos > 0 ? <h3>You have compleated {complTodos} todo</h3> : ""}
+      {complTodosCount > 0 && (
+        <h3>
+          {`You have compleated ${complTodosCount} ${
+            complTodosCount > 1 ? "todos" : "todo"
+          }`}
+        </h3>
+      )}
     </>
   );
 }

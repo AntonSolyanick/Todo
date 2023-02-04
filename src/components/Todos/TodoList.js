@@ -1,17 +1,15 @@
 import Todo from "./Todo";
 
-function TodoList({ todoArr, delTodoFn, setCompltodosFn, complTodos }) {
+function TodoList({ todoArr, delTodoFn, toggleTodoFn }) {
   return (
     <div>
-      {todoArr.map((todo, i) => {
+      {todoArr.map((todo) => {
         return (
           <Todo
-            key={i}
-            index={i}
+            key={todo.id}
             todo={todo}
             delTodoFn={delTodoFn}
-            complTodos={complTodos}
-            setCompltodosFn={setCompltodosFn}
+            toggleTodoFn={toggleTodoFn}
           />
         );
       })}

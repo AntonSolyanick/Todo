@@ -1,7 +1,5 @@
 import { useState } from "react";
 
-import styles from "./TodoForm.module.css";
-
 function TodoForm({ addTodoFn }) {
   const [input, setInput] = useState("");
 
